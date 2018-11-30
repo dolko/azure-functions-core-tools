@@ -105,7 +105,8 @@ namespace Azure.Functions.Cli.Actions.LocalActions
             else if (string.IsNullOrEmpty(WorkerRuntime))
             {
                 ColoredConsole.Write("Select a worker runtime: ");
-                workerRuntime = SelectionMenuHelper.DisplaySelectionWizard(WorkerRuntimeLanguageHelper.AvailableWorkersList);
+                var workerRuntimeString = SelectionMenuHelper.DisplaySelectionWizard(WorkerRuntimeLanguageHelper.WorkerToDisplayStrings.Values);
+                workerRuntime = WorkerRuntimeLanguageHelper.WorkerToDisplayStrings.FirstOrDefault(wr => wr.Value.Equals(workerRuntimeString)).Key;
                 ColoredConsole.WriteLine(TitleColor(workerRuntime.ToString()));
             }
             else

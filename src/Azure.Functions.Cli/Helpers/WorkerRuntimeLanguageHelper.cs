@@ -42,6 +42,17 @@ namespace Azure.Functions.Cli.Helpers
             { WorkerRuntime.powershell, "powershell" }
         };
 
+        public static IDictionary<WorkerRuntime, string> WorkerToDisplayStrings => availableWorkersRuntime.Keys.ToDictionary(wr => wr, wr =>
+        {
+            switch (wr)
+            {
+                case WorkerRuntime.python:
+                    return "python (preview)";
+                default:
+                    return wr.ToString();
+            }
+        });
+
         public static string AvailableWorkersRuntimeString =>
             string.Join(", ", availableWorkersRuntime.Keys
                 .Where(k => k != WorkerRuntime.powershell)
