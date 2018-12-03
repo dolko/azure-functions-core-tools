@@ -119,6 +119,9 @@ namespace Azure.Functions.Cli.Actions.LocalActions
             {
                 ColoredConsole.Write("Select a template: ");
                 TemplateName = TemplateName ?? SelectionMenuHelper.DisplaySelectionWizard(DotnetHelpers.GetTemplates());
+				if (TemplateName == "BlobTrigger"){
+					ColoredConsole.Write("Please check your local.settings.json file and make sure azure web jobs storage is appropriately configured")
+				}
                 ColoredConsole.Write("Function name: ");
                 FunctionName = FunctionName ?? Console.ReadLine();
                 ColoredConsole.WriteLine(FunctionName);
@@ -133,6 +136,10 @@ namespace Azure.Functions.Cli.Actions.LocalActions
                 ColoredConsole.WriteLine(TitleColor(TemplateName));
 
                 var template = templates.FirstOrDefault(t => Utilities.EqualsIgnoreCaseAndSpace(t.Metadata.Name, TemplateName) && t.Metadata.Language.Equals(templateLanguage, StringComparison.OrdinalIgnoreCase));
+
+				if (TemplateName == "BlobTrigger"){
+					ColoredConsole.Write("Please check your local.settings.json file and make sure azure web jobs storage is appropriately configured")
+				}
 
                 if (template == null)
                 {
